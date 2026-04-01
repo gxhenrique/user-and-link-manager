@@ -51,7 +51,7 @@ public class UserService {
 	private void updateUser(User entity, UserUpdateDTO user) {
 		entity.setEmail(user.email());
 		entity.setName(user.name());
-		entity.setSenha(user.senha());
+		entity.setSenha(passwordEncoder.encode(user.senha()));
 		
 	}
 

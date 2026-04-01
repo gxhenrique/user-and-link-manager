@@ -12,6 +12,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_user")
@@ -22,8 +25,14 @@ public class User implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank(message = "Nome obrigatório")
 	private String name;
+	
+	@Email(message = "Email invalido")
 	private String email;
+	
+	@Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
 	private String senha;
 	
 	public User() {

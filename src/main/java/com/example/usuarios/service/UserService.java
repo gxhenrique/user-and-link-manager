@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.usuarios.dto.UserCreatedDTO;
+import com.example.usuarios.dto.UserUpdateDTO;
 import com.example.usuarios.entity.User;
 import com.example.usuarios.repository.UserRepository;
 
@@ -37,20 +38,20 @@ public class UserService {
 		return repository.save(user);
 	}
 	
-	public User update(Long id, User user) {
+	public User update(Long id, UserUpdateDTO dto) {
 		
 		User entity = repository.findById(id).get();
-		
-		updateUser(entity, user);
+	
+		updateUser(entity, dto);
 		
 		return repository.save(entity);
 
 	}
 	
-	private void updateUser(User entity, User user) {
-		entity.setEmail(user.getEmail());
-		entity.setName(user.getName());
-		entity.setSenha(user.getSenha());
+	private void updateUser(User entity, UserUpdateDTO user) {
+		entity.setEmail(user.email());
+		entity.setName(user.name());
+		entity.setSenha(user.senha());
 		
 	}
 

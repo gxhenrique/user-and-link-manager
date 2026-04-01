@@ -28,8 +28,15 @@ public class UserController {
 	private UserService service;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
-		List<User> list = service.findAll();
+	public ResponseEntity<List<UserResponseDTO>> findAll(){
+		List<User> users = service.findAll();
+		
+		List<UserResponseDTO> list = users.stream()
+				.map(user ->  new UserResponseDTO(
+						user.getId(),
+						user.getName(),
+						user.getEmail())).toList();
+		
 		return ResponseEntity.ok().body(list);
 	}
 	

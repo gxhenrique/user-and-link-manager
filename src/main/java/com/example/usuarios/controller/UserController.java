@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.usuarios.dto.UserCreatedDTO;
+import com.example.usuarios.dto.UserPatchDTO;
 import com.example.usuarios.dto.UserResponseDTO;
 import com.example.usuarios.dto.UserUpdateDTO;
 import com.example.usuarios.entity.User;
@@ -90,6 +92,21 @@ public class UserController {
 	public ResponseEntity<User> delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PatchMapping(value = "/{id}")
+	public ResponseEntity<UserResponseDTO> patch(@PathVariable Long id, @RequestBody UserPatchDTO dto){
+		User obj = service.patchUser(id, dto);
+		
+		UserResponseDTO response = new UserResponseDTO(
+				obj.getId(),
+				obj.getName(),
+				obj.getEmail()
+				
+				);
+		
+		return ResponseEntity.ok().body(response);
+		
 	}
 	
 }

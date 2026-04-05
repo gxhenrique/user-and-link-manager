@@ -1,6 +1,6 @@
-# 🔐 API de Usuários com Autenticação JWT
+# 🔗 API de Usuários e Links com Autenticação JWT
 
-Projeto desenvolvido para prática de backend com **Java + Spring Boot**, implementando um CRUD completo de usuários com autenticação via **JWT (JSON Web Token)** e boas práticas como uso de DTOs e validações.
+Projeto desenvolvido para prática de backend com **Java + Spring Boot**, evoluindo de um CRUD de usuários para um sistema estilo **Linktree**, onde cada usuário pode gerenciar seus próprios links, com autenticação via **JWT (JSON Web Token)**.
 
 ---
 
@@ -18,15 +18,34 @@ Projeto desenvolvido para prática de backend com **Java + Spring Boot**, implem
 
 ## 📌 Funcionalidades
 
+### 👤 Usuários
+
 * ✅ Cadastro de usuários
 * ✅ Login com autenticação
+* ✅ Atualização de usuário
+* ✅ Exclusão de usuário
+* ✅ Validação de dados (email, senha, etc.)
+
+### 🔗 Links
+
+* ✅ Criação de links associados a usuários
+* ✅ Listagem de links por usuário
+* ✅ Relacionamento **1:N (User → Links)**
+* ✅ Criação de link usando apenas `userId`
+* ✅ Estrutura pronta para evolução (ex: ordenação de links)
+
+### 🔐 Segurança
+
 * ✅ Geração de token JWT
 * ✅ Validação de token via filtro
 * ✅ Rotas protegidas
-* ✅ Atualização de usuário
-* ✅ Exclusão de usuário
-* ✅ Validação de dados (ex: email, senha)
+* ✅ Autenticação stateless (sem sessão)
+
+### 🧩 Arquitetura
+
 * ✅ Uso de DTOs (Request / Response)
+* ✅ Separação de responsabilidades
+* ✅ Evita exposição direta das entidades
 
 ---
 
@@ -49,11 +68,11 @@ Authorization: Bearer SEU_TOKEN
 ```
 src/main/java/com/example/usuarios
 │
-├── controller     # Controllers (endpoints)
+├── controller     # Endpoints da API
 ├── service        # Regras de negócio
 ├── repository     # Acesso ao banco
-├── entity         # Entidades JPA
-├── dto            # DTOs (entrada e saída)
+├── entity         # Entidades JPA (User, Link)
+├── dto            # DTOs de entrada e saída
 ├── security       # Configuração de segurança + filtro JWT
 ```
 
@@ -97,7 +116,7 @@ Body:
 POST /users
 ```
 
-#### Listar usuários
+#### Listar usuários (com links)
 
 ```
 GET /users
@@ -109,16 +128,30 @@ GET /users
 GET /users/{id}
 ```
 
-#### Atualizar usuário
+---
+
+### 🔗 Links
+
+#### Criar link
 
 ```
-PUT /users/{id}
+POST /links
 ```
 
-#### Deletar usuário
+Body:
+
+```json
+{
+  "name": "YouTube",
+  "url": "https://www.youtube.com/",
+  "userId": 1
+}
+```
+
+#### Listar links por usuário
 
 ```
-DELETE /users/{id}
+GET /users/{id}
 ```
 
 ---
@@ -127,8 +160,8 @@ DELETE /users/{id}
 
 * Senhas criptografadas com **BCrypt**
 * Rotas protegidas com Spring Security
-* Autenticação stateless (sem sessão)
 * Filtro JWT para validação de requisições
+* Estrutura pronta para autenticação baseada no usuário logado
 
 ---
 
@@ -147,9 +180,10 @@ Utilizando Bean Validation:
 ## 💡 Boas práticas aplicadas
 
 * Uso de DTOs para não expor entidades
-* Separação de responsabilidades (Controller / Service / Repository)
-* Tratamento de autenticação com JWT
-* Código organizado para evolução futura
+* Relacionamento correto entre entidades (JPA)
+* Evita loop infinito com serialização JSON
+* Separação em camadas (Controller / Service / Repository)
+* Código preparado para escalar
 
 ---
 
@@ -159,13 +193,16 @@ Projeto criado com foco em:
 
 * Aprender autenticação com Spring Security
 * Entender JWT na prática
-* Aplicar boas práticas de backend
-* Evoluir para nível de desenvolvedor backend júnior
+* Trabalhar com relacionamentos no banco (JPA)
+* Evoluir de CRUD simples para um sistema mais real (estilo Linktree)
+* Se preparar para vagas de desenvolvedor backend júnior
 
 ---
 
 ## 🚀 Possíveis melhorias
 
+* [ ] Associar links automaticamente ao usuário logado (JWT)
+* [ ] Ordenação de links (drag and drop estilo Linktree)
 * [ ] Implementar roles (ADMIN / USER)
 * [ ] Refresh Token
 * [ ] Tratamento global de exceções

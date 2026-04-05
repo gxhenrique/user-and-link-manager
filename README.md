@@ -65,105 +65,76 @@ Authorization: Bearer SEU_TOKEN
 
 ## 📂 Estrutura do Projeto
 
-```
+```text
 src/main/java/com/example/usuarios
 │
-├── controller     # Endpoints da API
-├── service        # Regras de negócio
-├── repository     # Acesso ao banco
-├── entity         # Entidades JPA (User, Link)
-├── dto            # DTOs de entrada e saída
-├── security       # Configuração de segurança + filtro JWT
+├── controller     # Endpoints da API (UserController, LinkController, AuthController)
+├── service        # Regras de negócio (UserService, LinkService)
+├── repository     # Interfaces JPA para acesso ao banco
+├── entity         # Entidades (User, Link)
+├── dto            # DTOs de usuário (request/response)
+├── dtolink        # DTOs específicos de Link
+├── security       # Configurações do Spring Security + JWT
+├── componet       # Filtro JWT e componentes auxiliares (ex: JwtFilter)
+├── exceptions     # Tratamento de exceções personalizadas
 ```
 
 ---
 
-## 🧪 Banco de Dados
+## 🧩 Organização da Arquitetura
 
-* Utilizado: **H2 (em memória)**
-* Acesso:
+O projeto segue o padrão em camadas:
 
-```
-http://localhost:8080/h2-console
-```
-
----
-
-## 📮 Endpoints principais
-
-### 🔑 Autenticação
-
-```
-POST /auth/login
-```
-
-Body:
-
-```json
-{
-  "email": "usuario@email.com",
-  "senha": "123456"
-}
-```
+* **Controller** → recebe requisições HTTP
+* **Service** → contém a lógica de negócio
+* **Repository** → comunicação com o banco
+* **DTO** → controla entrada e saída de dados
+* **Entity** → representação das tabelas no banco
 
 ---
 
-### 👤 Usuários
+## 🔗 Relacionamento das Entidades
 
-#### Criar usuário
+O sistema possui um relacionamento:
 
-```
-POST /users
-```
+* **User (1) → (N) Links**
 
-#### Listar usuários (com links)
+Ou seja:
 
-```
-GET /users
-```
-
-#### Buscar por ID
-
-```
-GET /users/{id}
-```
+* Um usuário pode ter vários links
+* Cada link pertence a um único usuário
 
 ---
 
-### 🔗 Links
+## ⚙️ Fluxo de criação de Link
 
-#### Criar link
-
-```
-POST /links
-```
-
-Body:
+1. Cliente envia:
 
 ```json
 {
   "name": "YouTube",
-  "url": "https://www.youtube.com/",
+  "url": "https://youtube.com",
   "userId": 1
 }
 ```
 
-#### Listar links por usuário
+2. O backend:
 
-```
-GET /users/{id}
-```
+* Busca o usuário pelo `userId`
+* Associa o link ao usuário
+* Salva no banco
+
+---
+
+## 🛡️ Segurança (JWT)
+
+* Autenticação stateless (sem sessão)
+* Filtro JWT intercepta requisições
+* Token validado a cada request
+* Rotas protegidas
 
 ---
 
-## 🛡️ Segurança
-
-* Senhas criptografadas com **BCrypt**
-* Rotas protegidas com Spring Security
-* Filtro JWT para validação de requisições
-* Estrutura pronta para autenticação baseada no usuário logado
-
----
 
 ## 📥 Validação de Dados
 

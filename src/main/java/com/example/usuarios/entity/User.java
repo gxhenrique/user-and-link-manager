@@ -40,7 +40,6 @@ public class User implements UserDetails{
 	private String senha;
 	
 	@OneToMany(mappedBy = "user")
-	
 	private List<Link> link;
 	
 	public User() {

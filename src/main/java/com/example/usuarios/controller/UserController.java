@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.usuarios.dto.UserCreatedDTO;
 import com.example.usuarios.dto.UserPatchDTO;
 import com.example.usuarios.dto.UserResponseDTO;
+import com.example.usuarios.dto.UserResponseLinksDTO;
 import com.example.usuarios.dto.UserUpdateDTO;
 import com.example.usuarios.entity.User;
 import com.example.usuarios.service.UserService;
@@ -32,26 +33,28 @@ public class UserController {
 	private UserService service;
 	
 	@GetMapping
-	public ResponseEntity<List<UserResponseDTO>> findAll(){
+	public ResponseEntity<List<UserResponseLinksDTO>> findAll(){
 		List<User> users = service.findAll();
 		
-		List<UserResponseDTO> list = users.stream()
-				.map(user ->  new UserResponseDTO(
+		List<UserResponseLinksDTO> list = users.stream()
+				.map(user ->  new UserResponseLinksDTO(
 						user.getId(),
 						user.getName(),
-						user.getEmail())).toList();
+						user.getEmail(),
+						user.getLink())).toList();
 		
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id){
+	public ResponseEntity<UserResponseLinksDTO> findById(@PathVariable Long id){
 		User user = service.findById(id);
 		
-		UserResponseDTO obj = new UserResponseDTO(
+		UserResponseLinksDTO obj = new UserResponseLinksDTO(
 				user.getId(),
 				user.getName(),
-				user.getEmail()
+				user.getEmail(),
+				user.getLink()
 				
 				);
 		
@@ -81,6 +84,7 @@ public class UserController {
 				obj.getId(),
 				obj.getName(),
 				obj.getEmail()
+				 // fazer uma alteração para outra DTO
 				
 				);
 		
@@ -103,6 +107,7 @@ public class UserController {
 				obj.getId(),
 				obj.getName(),
 				obj.getEmail()
+				  // fazer uma alteração para outra DTO
 				
 				);
 		

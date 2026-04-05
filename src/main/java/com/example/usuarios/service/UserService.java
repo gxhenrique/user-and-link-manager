@@ -79,7 +79,7 @@ public class UserService {
 	
 	public User patchUser(Long id, UserPatchDTO dto) {
 		
-		User entity = repository.findById(id).get();
+		User entity = repository.findById(id).orElseThrow(() ->  new ResourceNotFoundException("Usuario não encontrado com o id " + id) );
 		
 		patchUpdateUser(entity, dto);
 		

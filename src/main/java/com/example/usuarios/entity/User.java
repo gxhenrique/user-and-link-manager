@@ -7,10 +7,14 @@ import java.util.Objects;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -35,6 +39,10 @@ public class User implements UserDetails{
 	@Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
 	private String senha;
 	
+	@OneToMany(mappedBy = "user")
+	
+	private List<Link> link;
+	
 	public User() {
 		
 	}
@@ -46,6 +54,18 @@ public class User implements UserDetails{
 		this.name = name;
 		this.email = email;
 		this.senha = senha;
+	}
+
+	
+	
+
+	public List<Link> getLink() {
+		return link;
+	}
+
+
+	public void setLink(List<Link> link) {
+		this.link = link;
 	}
 
 

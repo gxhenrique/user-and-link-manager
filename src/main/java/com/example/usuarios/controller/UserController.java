@@ -96,6 +96,7 @@ public class UserController {
 	
 	@PatchMapping(value = "/{id}")
 	public ResponseEntity<UserResponseDTO> patch(@PathVariable Long id, @RequestBody UserPatchDTO dto){
+		
 		User obj = service.patchUser(id, dto);
 		
 		UserResponseDTO response = new UserResponseDTO(

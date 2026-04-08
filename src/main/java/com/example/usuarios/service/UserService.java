@@ -73,6 +73,7 @@ public class UserService {
 		user.setEmail(dto.email());
 		user.setName(dto.name());
 		user.setSenha(dto.senha());
+	
 		
 		return user;
 	}

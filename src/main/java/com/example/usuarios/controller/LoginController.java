@@ -28,6 +28,9 @@ public class LoginController {
 	@PostMapping(value = "/login")
 	public ResponseEntity<String> login(@RequestBody UserLoginDTO data){
 		
+		System.out.println("ENTROU NO LOGIN");
+	
+		
 		UsernamePasswordAuthenticationToken authToken = 
 				new UsernamePasswordAuthenticationToken(data.email(), data.senha());
 		

@@ -34,6 +34,7 @@ public class UserController {
 	
 	@GetMapping
 	public ResponseEntity<List<UserResponseLinksDTO>> findAll(){
+		
 		List<User> users = service.findAll();
 		
 		List<UserResponseLinksDTO> list = users.stream()

@@ -7,10 +7,7 @@ import java.util.Objects;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,30 +19,29 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_user")
-public class User implements UserDetails{
-	
+public class User implements UserDetails {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank(message = "Nome obrigatório")
 	private String name;
-	
+
 	@Email(message = "Email invalido")
 	private String email;
-	
+
 	@Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
 	private String senha;
-	
+
 	@OneToMany(mappedBy = "user")
 	private List<Link> link;
-	
+
 	public User() {
-		
+
 	}
-	
 
 	public User(Long id, String name, String email, String senha) {
 		super();
@@ -53,20 +49,16 @@ public class User implements UserDetails{
 		this.name = name;
 		this.email = email;
 		this.senha = senha;
-	}
 
-	
-	
+	}
 
 	public List<Link> getLink() {
 		return link;
 	}
 
-
 	public void setLink(List<Link> link) {
 		this.link = link;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -100,12 +92,10 @@ public class User implements UserDetails{
 		this.senha = senha;
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -119,13 +109,11 @@ public class User implements UserDetails{
 		return Objects.equals(id, other.id);
 	}
 
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return	List.of();
+		return List.of();
 	}
-
 
 	@Override
 	public String getPassword() {
@@ -133,29 +121,30 @@ public class User implements UserDetails{
 		return senha;
 	}
 
-
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return email;
 	}
-	
 
-    @Override
-    public boolean isAccountNonExpired() { return true; }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isAccountNonLocked() { return true; }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    @Override
-    public boolean isCredentialsNonExpired() { return true; }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isEnabled() { return true; }
-	
-	
-	
-	
-	
-	
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
 }

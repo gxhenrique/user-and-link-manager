@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.usuarios.dtolink.LinkCreatedDTO;
+import com.example.usuarios.dtolink.LinkUpdateDTO;
 import com.example.usuarios.entity.Link;
 import com.example.usuarios.entity.User;
 import com.example.usuarios.excepitons.ResourceNotFoundException;
@@ -48,6 +49,50 @@ public class LinkService {
 		link.setUser(user);
 		
 		return repository.save(link);
+	}
+	
+	public Link update(Long id, LinkUpdateDTO dto) {
+		
+		Link entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuario nao encotrado com o id" + id));
+		
+		updateLink(entity, dto);
+		
+		return repository.save(entity);
+	}
+	
+
+	
+	private void updateLink (Link entity, LinkUpdateDTO dto) {
+		entity.setName(dto.name());
+		entity.setUrl(dto.url());
+	}
+	
+	public void delete(Long id) {
+		findById(id);
+		repository.deleteById(id);
+	}
+	
+	public Link patch(Long id, LinkUpdateDTO dto) {
+		
+		Link entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuario nao encotrado com o id" + id));
+		
+		patchLink(entity, dto);
+		
+		return repository.save(entity);
+	}
+	
+	private void patchLink(Link entity, LinkUpdateDTO dto) {
+		
+		if(	dto.name() != null) {
+			entity.setName(dto.name());
+		}
+		
+		if(dto.url() != null) {
+			entity.setUrl(dto.url());
+		}
+		
 	}
 	
 	

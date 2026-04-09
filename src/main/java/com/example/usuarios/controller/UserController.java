@@ -28,40 +28,9 @@ import com.example.usuarios.service.UserService;
 @RequestMapping(value = "/users")
 public class UserController {
 
-	
 	@Autowired
 	private UserService service;
 	
-	@GetMapping
-	public ResponseEntity<List<UserResponseLinksDTO>> findAll(){
-		
-		List<User> users = service.findAll();
-		
-		List<UserResponseLinksDTO> list = users.stream()
-				.map(user ->  new UserResponseLinksDTO(
-						user.getId(),
-						user.getName(),
-						user.getEmail(),
-						user.getLink())).toList();
-		
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<UserResponseLinksDTO> findById(@PathVariable Long id){
-		User user = service.findById(id);
-		
-		UserResponseLinksDTO obj = new UserResponseLinksDTO(
-				user.getId(),
-				user.getName(),
-				user.getEmail(),
-				user.getLink()
-				
-				);
-		
-		
-		return ResponseEntity.ok().body(obj);
-	}
 	
 	@PostMapping
 	public ResponseEntity<UserResponseDTO> postUser(@RequestBody UserCreatedDTO dto){
@@ -76,44 +45,6 @@ public class UserController {
 	}
 	
 	
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserResponseDTO> update(@PathVariable Long id,@RequestBody UserUpdateDTO dto){
 	
-		User obj = service.update(id, dto);
-		
-		UserResponseDTO response = new UserResponseDTO(
-				obj.getId(),
-				obj.getName(),
-				obj.getEmail()
-				 // fazer uma alteração para outra DTO
-				
-				);
-		
-		return ResponseEntity.ok().body(response);
-		
-	}
-	
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<User> delete(@PathVariable Long id){
-		service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@PatchMapping(value = "/{id}")
-	public ResponseEntity<UserResponseDTO> patch(@PathVariable Long id, @RequestBody UserPatchDTO dto){
-		
-		User obj = service.patchUser(id, dto);
-		
-		UserResponseDTO response = new UserResponseDTO(
-				obj.getId(),
-				obj.getName(),
-				obj.getEmail()
-				  // fazer uma alteração para outra DTO
-				
-				);
-		
-		return ResponseEntity.ok().body(response);
-		
-	}
 	
 }

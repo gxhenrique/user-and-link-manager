@@ -5,9 +5,14 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.usuarios.enums.Role;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,18 +43,32 @@ public class User implements UserDetails {
 
 	@OneToMany(mappedBy = "user")
 	private List<Link> link;
+	
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
 	public User() {
 
 	}
 
-	public User(Long id, String name, String email, String senha) {
+	public User(Long id, String name, String email, String senha, Role role) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.senha = senha;
+		this.role = role;
 
+	}
+	
+	
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public List<Link> getLink() {
@@ -112,7 +131,7 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return List.of();
+		return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
 	}
 
 	@Override

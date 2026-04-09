@@ -1448,3 +1448,6 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/gxhen/D
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:291)
 	... 145 more
+2026-04-08 18:30:38.611788-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]TB_USER"; expected "TRUNCATE"; SQL statement:
+TB_USER [42001-240]

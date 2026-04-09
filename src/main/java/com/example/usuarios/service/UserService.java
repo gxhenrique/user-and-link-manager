@@ -11,6 +11,7 @@ import com.example.usuarios.dto.UserCreatedDTO;
 import com.example.usuarios.dto.UserPatchDTO;
 import com.example.usuarios.dto.UserUpdateDTO;
 import com.example.usuarios.entity.User;
+import com.example.usuarios.enums.Role;
 import com.example.usuarios.excepitons.ResourceNotFoundException;
 import com.example.usuarios.repository.UserRepository;
 
@@ -37,6 +38,7 @@ public class UserService {
 	
 	public User created(User user) {
 		user.setSenha(passwordEncoder.encode(user.getSenha()));
+		user.setRole(Role.USER);
 		return repository.save(user);
 	}
 	

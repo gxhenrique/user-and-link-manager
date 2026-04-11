@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.example.usuarios.entity.User;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 @Service

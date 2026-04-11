@@ -31,13 +31,16 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChainy(HttpSecurity http) {
 		http
 		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+		.cors(cors -> {})
 		.csrf(csrf -> csrf.disable())
 		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.authorizeHttpRequests(auth -> auth
+				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.requestMatchers("/auth/**").permitAll()
+				.requestMatchers("/users/register/**").permitAll()
 				.requestMatchers("/admin/**").hasRole("ADMIN")
-				.requestMatchers("/users/**").hasAnyRole("USER", "ADMIN")
 				.requestMatchers("/h2-console/**").permitAll()
+				.requestMatchers("/user/me/links/**").hasAnyRole("USER", "ADMIN")
 				.anyRequest().authenticated()
 				)
 		.formLogin(form -> form.disable())

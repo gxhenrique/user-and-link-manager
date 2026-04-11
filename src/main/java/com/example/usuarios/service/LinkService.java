@@ -95,6 +95,31 @@ public class LinkService {
 		
 	}
 	
+	// service para user logado ---  ajusta depois
+	
+	public List<Link> findMyLinks(String email){
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuario nao encotrado com o email" + email));
+		
+		return repository.findByUser(user);
+	}
+	
+	
+	public void deleteMyLinks(Long id, String email) {
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuario nao encotrado com o email" + email));
+		
+		Link link = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Link nao encotrado com o id" + id));
+		
+		if(!link.getUser().getId().equals(user.getId())) {
+			throw new RuntimeException("Você não tem permissão para excluir este link");
+		}
+		
+		repository.delete(link);
+	}
+	
+	
 	
 	
 	

@@ -104,6 +104,34 @@ public class LinkService {
 		return repository.findByUser(user);
 	}
 	
+	public Link createMyLink(Link link, String email) {
+		
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuario nao encotrado com o email" + email));
+		
+		Link newLink = new Link();
+		newLink.setName(link.getName());
+		newLink.setUrl(link.getUrl());
+		newLink.setUser(user);
+		
+		return repository.save(newLink);
+		
+	}
+	
+	public Link updateMyLink(Link link, Long id, String email) {
+		
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuario nao encotrado com o email" + email));
+		
+		Link entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Link nao encotrado com o di"+ id));
+
+		
+		updateMylink(entity, link, user);
+		
+		return repository.save(entity);
+	}
+	
 	
 	public void deleteMyLinks(Long id, String email) {
 		User user = userRepository.findByEmail(email)
@@ -120,8 +148,19 @@ public class LinkService {
 	}
 	
 	
-	
-	
+	private void updateMylink(Link entity, Link link, User user) {
+		
+		if(	link.getName() != null) {
+			entity.setName(link.getName());
+			entity.setUser(user);
+		}
+		
+		if(link.getUrl() != null) {
+			entity.setUrl(link.getUrl());
+			entity.setUser(user);
+		}
+		
+	}
 	
 	
 	

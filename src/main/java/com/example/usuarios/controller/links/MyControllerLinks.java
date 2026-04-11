@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +36,16 @@ public class MyControllerLinks {
 		return ResponseEntity.ok(links);
 	}
 	
+	@PostMapping
+	public ResponseEntity<Link> createMyLink(@RequestBody Link link, Authentication authentication){
+		String email = authentication.getName();
+		
+		Link newLink = service.createMyLink(link, email);
+		
+		return ResponseEntity.ok().body(newLink);
+	}
+	
+	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Link> deleteMyLink(@PathVariable Long id, Authentication authentication){
 		String email = authentication.getName();
@@ -40,4 +53,15 @@ public class MyControllerLinks {
 		
 		return ResponseEntity.noContent().build();
 	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Link> uptadeMyLink(@PathVariable Long id, @RequestBody Link link, Authentication authentication){
+		String email = authentication.getName();
+		
+		Link response = service.updateMyLink(link, id, email);
+		
+		return ResponseEntity.ok().body(response);
+	}
+	
+	
 }

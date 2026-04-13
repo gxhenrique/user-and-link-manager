@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.usuarios.service.TokenService;
+import com.example.usuarios.service.token.TokenService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

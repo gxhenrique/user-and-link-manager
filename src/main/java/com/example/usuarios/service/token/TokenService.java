@@ -1,4 +1,4 @@
-package com.example.usuarios.service;
+package com.example.usuarios.service.token;
 
 import java.security.Key;
 import java.util.Date;

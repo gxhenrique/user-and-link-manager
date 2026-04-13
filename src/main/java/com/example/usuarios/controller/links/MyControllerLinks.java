@@ -2,6 +2,7 @@ package com.example.usuarios.controller.links;
 
 import java.util.List;
 
+import com.example.usuarios.service.link.MyLinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.usuarios.entity.Link;
-import com.example.usuarios.service.LinkService;
+import com.example.usuarios.service.link.LinkService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -24,7 +25,7 @@ import com.example.usuarios.service.LinkService;
 public class MyControllerLinks {
 	
 	@Autowired
-	private LinkService service;
+	private MyLinkService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Link>> findAllLinks(Authentication authentication){

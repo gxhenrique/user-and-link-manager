@@ -1,4 +1,4 @@
-package com.example.usuarios.controller;
+package com.example.usuarios.controller.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,37 +14,36 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.usuarios.dto.TokenResponse;
 import com.example.usuarios.dto.UserLoginDTO;
 import com.example.usuarios.entity.User;
-import com.example.usuarios.service.TokenService;
+import com.example.usuarios.service.token.TokenService;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/auth")
 public class LoginController {
-	
-	@Autowired
-	private TokenService tokenService;
-	
-	@Autowired
-	private AuthenticationManager authenticationManager;
-	
-	
-	@PostMapping(value = "/login")
-	public ResponseEntity<TokenResponse> login(@RequestBody UserLoginDTO data){
-		
-		System.out.println("ENTROU NO LOGIN");
-	
-		
-		UsernamePasswordAuthenticationToken authToken = 
-				new UsernamePasswordAuthenticationToken(data.email(), data.senha());
-		
-		Authentication authentication = authenticationManager.authenticate(authToken);
-		
-		User user = (User) authentication.getPrincipal();
-		
-		String token = tokenService.generateToken(user);
-		System.out.println(token);
-		
-		
-		 return ResponseEntity.ok(new TokenResponse(token, "Bearer"));
-	}
+
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<TokenResponse> login(@RequestBody UserLoginDTO data) {
+
+        System.out.println("ENTROU NO LOGIN");
+
+
+        UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(data.email(), data.senha());
+
+        Authentication authentication = authenticationManager.authenticate(authToken);
+
+        User user = (User) authentication.getPrincipal();
+
+        String token = tokenService.generateToken(user);
+        System.out.println(token);
+
+
+        return ResponseEntity.ok(new TokenResponse(token, "Bearer"));
+    }
 }

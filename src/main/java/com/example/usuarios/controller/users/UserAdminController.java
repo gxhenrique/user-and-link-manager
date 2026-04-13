@@ -1,4 +1,4 @@
-package com.example.usuarios.controller;
+package com.example.usuarios.controller.users;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import com.example.usuarios.dto.UserResponseDTO;
 import com.example.usuarios.dto.UserResponseLinksDTO;
 import com.example.usuarios.dto.UserUpdateDTO;
 import com.example.usuarios.entity.User;
-import com.example.usuarios.service.UserService;
+import com.example.usuarios.service.user.UserService;
 
 @RestController
 @RequestMapping(value = "/admin/users")

@@ -1,4 +1,4 @@
-package com.example.usuarios.controller;
+package com.example.usuarios.controller.users;
 
 import java.net.URI;
 
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.usuarios.dto.UserCreatedDTO;
 import com.example.usuarios.dto.UserResponseDTO;
 import com.example.usuarios.entity.User;
-import com.example.usuarios.service.UserService;
+import com.example.usuarios.service.user.UserService;
 
 @RestController
 @CrossOrigin(origins = "*")

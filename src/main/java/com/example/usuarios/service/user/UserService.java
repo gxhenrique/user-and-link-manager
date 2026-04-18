@@ -44,24 +44,24 @@ public class UserService {
 	
 	public User update(Long id, UserUpdateDTO dto) {
 		
-		if(dto.name() == null || dto.email() == null || dto.senha() == null) {
+		if(dto.name() == null || dto.email() == null || dto.senha() == null ) {
 			throw new RuntimeException("Todos os campos são obrigatorio.");
 		}
-			
-	
 		User entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuario não encontrado com o id " + id));
-		
-	
 		updateUser(entity, dto);
 
 		return repository.save(entity);
 	
 	}
 	
-	private void updateUser(User entity, UserUpdateDTO user) {
-		entity.setEmail(user.email());
-		entity.setName(user.name());
-		entity.setSenha(passwordEncoder.encode(user.senha()));
+	private void updateUser(User entity, UserUpdateDTO dto) {
+		entity.setEmail(dto.email());
+		entity.setName(dto.name());
+		entity.setSenha(passwordEncoder.encode(dto.senha()));
+		entity.setBio(dto.bio());
+		entity.setFoto(dto.foto());
+		entity.setUsernameCustom(dto.usernameCustom());
+		entity.setDataNascimento(dto.dataNascimento());
 		
 	}
 
@@ -75,14 +75,15 @@ public class UserService {
 		user.setEmail(dto.email());
 		user.setName(dto.name());
 		user.setSenha(dto.senha());
-	
-		
+		user.setDataNascimento(dto.dataNascimento());
+		user.setUsernameCustom(dto.usernameCustom());
 		return user;
 	}
 	
 	public User patchUser(Long id, UserPatchDTO dto) {
 		
-		User entity = repository.findById(id).orElseThrow(() ->  new ResourceNotFoundException("Usuario não encontrado com o id " + id) );
+		User entity = repository.findById(id).orElseThrow(() ->
+				new ResourceNotFoundException("Usuario não encontrado com o id " + id) );
 		
 		patchUpdateUser(entity, dto);
 		
@@ -102,6 +103,24 @@ public class UserService {
 		if(dto.senha() != null) {
 			entity.setSenha(passwordEncoder.encode(dto.senha()));
 		}
+
+		if(dto.dataNascimento() != null){
+			entity.setDataNascimento(dto.dataNascimento());
+		}
+
+		if(dto.bio() != null){
+			entity.setBio(dto.bio());
+
+		}
+
+		if(dto.foto() != null){
+			entity.setFoto(dto.foto());
+		}
+
+		if(dto.usernameCustom() != null){
+			entity.setUsernameCustom(dto.usernameCustom());
+		}
+
 		
 		
 	}

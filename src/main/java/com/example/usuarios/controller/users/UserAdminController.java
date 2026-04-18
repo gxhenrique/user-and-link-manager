@@ -54,7 +54,7 @@ public class UserAdminController {
 
 		User obj = service.update(id, dto);
 
-		UserResponseDTO response = new UserResponseDTO(obj.getId(), obj.getName(), obj.getEmail());
+		UserResponseDTO response = new UserResponseDTO(obj.getId(), obj.getName(), obj.getEmail(), obj.getDataNascimento(), obj.getUsernameCustom());
 
 		return ResponseEntity.ok().body(response);
 
@@ -71,7 +71,7 @@ public class UserAdminController {
 
 		User obj = service.patchUser(id, dto);
 
-		UserResponseDTO response = new UserResponseDTO(obj.getId(), obj.getName(), obj.getEmail());
+		UserResponseDTO response = new UserResponseDTO(obj.getId(), obj.getName(), obj.getEmail(), obj.getDataNascimento(), obj.getUsernameCustom());
 
 		return ResponseEntity.ok().body(response);
 

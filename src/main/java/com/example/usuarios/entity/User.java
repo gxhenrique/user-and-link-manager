@@ -1,5 +1,6 @@
 package com.example.usuarios.entity;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +42,10 @@ public class User implements UserDetails {
 	@NotBlank(message = "Nome obrigatório")
 	private String name;
 
+	private String usernameCustom;
+
+	private LocalDate dataNascimento;
+
 	@Email(message = "Email invalido")
 	private String email;
 
@@ -49,6 +54,10 @@ public class User implements UserDetails {
 
 	@OneToMany(mappedBy = "user")
 	private List<Link> link;
+
+	private String bio;
+	private String foto;
+
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -57,17 +66,48 @@ public class User implements UserDetails {
 
 	}
 
-	public User(Long id, String name, String email, String senha, Role role) {
+	public User(String name, String usernameCustom, LocalDate dataNascimento,  String email, String senha) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.senha = senha;
-		this.role = role;
+		this.usernameCustom = usernameCustom;
+		this.dataNascimento = dataNascimento;
+
+
 
 	}
-	
-	
+
+	public String getUsernameCustom(){
+		return  usernameCustom;
+	}
+	public void setUsernameCustom(String username) {
+		this.usernameCustom = username;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 
 	public Role getRole() {
 		return role;

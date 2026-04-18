@@ -15,68 +15,64 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_Link")
 public class Link {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String name;
-	private String url;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	@JsonIgnore
-	private User user;
-	
-	public Link() {
-		
-	}
 
-	public Link(Long id, String name, String url, User user) {
-		this.id = id;
-		this.name = name;
-		this.url = url;
-		this.user = user;
-	}
-	
-	
+    // Add img para  Thumbnail
 
-	public Long getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String name;
+    private String url;
 
-	public String getName() {
-		return name;
-	}
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Link() {
 
-	public String getUrl() {
-		return url;
-	}
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public Link(Long id, String name, String url, User user) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.user = user;
+    }
 
-	public User getUser() {
-		return user;
-	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	
-	
-	
-	
-	
-	
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }

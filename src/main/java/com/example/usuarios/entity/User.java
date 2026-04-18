@@ -28,6 +28,12 @@ public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
+	// calocar a mas argumentos foto,username,data de nascimento,bio / title
+
+	// fazer uma verificação de email e senha @va
+
+	// mudar o nome dos controller
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

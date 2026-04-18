@@ -25,8 +25,8 @@ import com.example.usuarios.service.link.LinkService;
 public class MyControllerLinks {
 	
 	@Autowired
-	private MyLinkService service;
-	
+	private MyLinkService service; // fazer o DTO
+
 	@GetMapping
 	public ResponseEntity<List<Link>> findAllLinks(Authentication authentication){
 		
@@ -39,8 +39,8 @@ public class MyControllerLinks {
 	
 	@PostMapping
 	public ResponseEntity<Link> createMyLink(@RequestBody Link link, Authentication authentication){
+
 		String email = authentication.getName();
-		
 		Link newLink = service.createMyLink(link, email);
 		
 		return ResponseEntity.ok().body(newLink);

@@ -22,7 +22,7 @@ import com.example.usuarios.entity.Link;
 import com.example.usuarios.service.link.LinkService;
 
 @RestController
-@RequestMapping(value = "/admin/links")
+@RequestMapping(value = "/admin/links") // alterar coloca /admin/userID/links muadar rota
 public class LinkController {
 
 
